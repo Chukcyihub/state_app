@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/counter.dart';
 
 class ProfileWidget extends StatefulWidget {
   const ProfileWidget({super.key});
@@ -37,9 +40,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
               onPressed: (() {}),
-              child: const Text(
-                "Favorite",
-                style: TextStyle(color: Colors.white),
+              child: Text(
+                "Favorite ${context.watch<Counter>().number.toString()}",
+                style: const TextStyle(color: Colors.white),
               ),
             ),
             const SizedBox(
@@ -73,7 +76,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     padding: EdgeInsets.all(8),
                     child: ListTile(
                       leading: Icon(
-                        Icons.person_outline_rounded,
+                        Icons.person_add_alt,
                         color: Colors.green,
                       ),
                       title: Text(
