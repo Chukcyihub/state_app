@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:state_app/providers/favorite_provider.dart';
 
 class HomeWidget extends StatelessWidget {
   const HomeWidget({super.key});
@@ -18,20 +20,32 @@ class ContactList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final myFav = Provider.of<FavoriteProvider>(context);
+
     return ListView.builder(
       itemCount: 10,
       itemBuilder: ((context, index) {
         return ListTile(
-          leading: const Icon(Icons.person_add_alt_1_outlined),
+          leading: const Icon(
+            Icons.person,
+            size: 30,
+          ),
           title: const Text(
             "stephanie Okereke",
             style: TextStyle(color: Colors.blue),
           ),
           subtitle: const Text("+234-702-6881-411"),
-          trailing: ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.add),
-              label: const Text("Add")),
+          trailing: myFav.favoriteContacts.contains(index)
+              ? const Icon(
+                  Icons.favorite,
+                  color: Colors.red,
+                )
+              : ElevatedButton.icon(
+                  onPressed: () {
+                    myFav.addFavorite(index);
+                  },
+                  icon: const Icon(Icons.add),
+                  label: const Text("Add")),
         );
       }),
     );
